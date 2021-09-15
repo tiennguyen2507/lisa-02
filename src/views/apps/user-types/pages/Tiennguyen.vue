@@ -178,40 +178,40 @@ export default {
       ],
       rows: [
         {
-          mvtc: '00123', vtcv: 'Giám đốc', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Giám đốc', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
         },
 
       ],

@@ -1,74 +1,176 @@
 <template>
   <div class="listwork">
-    <vue-good-table
-      class="table"
-      :columns="columns"
-      :rows="rows"
-    >
-      <template
-        slot="table-row"
-        slot-scope="props"
+    <div class="listwork__top">
+      <h4>Danh sách vị trí công việc hợp lệ</h4>
+    </div>
+    <div class="listwork__table__01">
+      <vue-good-table
+        class="table"
+        :select-options="{ enabled: true }"
+        :columns="columns"
+        :rows="rows"
       >
-        <span v-if="props.column.field == 'score'">
-          <span style="font-weight: bold; color: blue;">tiennguyen</span>
-        </span>
-      </template>
-    </vue-good-table>
+        <template
+          slot="table-row"
+          slot-scope="props"
+        >
+          <span v-if="props.column.field == 'score'">
+            <span style="font-weight: bold; color: blue;">tiennguyen</span>
+          </span>
+        </template>
+      </vue-good-table>
+    </div>
+    <div class="listwork__text__center">
+      <p>Tổng cộng: {{ rows.length }} vị trí công việc</p>
+    </div>
+    <div class="listwork__head__02">
+      <div class="listwork__head__02__left">
+        <h4>Danh sách vị trí công việc không hợp lệ</h4>
+      </div>
+      <div class="listwork__head__02__right">
 
-  </div>
+        <b-button
+          variant="primary"
+          class="btn-icon"
+        >
+          <feather-icon icon="EditIcon" />
+        </b-button>
 
-</template>
+        <div class="listwork__head__02__right__icon">
+          <b-button
+            v-ripple.400="'rgba(113, 102, 240, 0.15)'"
+            variant="outline-primary"
+            class="btn-icon"
+          >
+            <feather-icon icon="CheckCircleIcon" />
+          </b-button>
+        </div>
+
+        <div />
+      </div>
+
+    </div>
+    <div class="listwork__table__02">
+      <vue-good-table
+        class="table"
+        :columns="columns02"
+        :rows="rows02"
+      >
+        <template
+          slot="table-row"
+          slot-scope="props"
+        >
+          <span v-if="props.column.field == 'icon02'">
+            <span> <feather-icon
+              icon="AlertTriangleIcon"
+              color="red"
+            /></span>
+          </span>
+        </template>
+      </vue-good-table>
+    </div>
+    <div class="listwork__text__center">
+      <p>Tổng cộng: {{ rows02.length }} vị trí công việc</p>
+    </div>
+
+    <div class="listwork__button">
+      <div class="listwork__button__item">
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="primary"
+        >
+          Thêm vị trí công việc
+        </b-button>
+      </div>
+      <div class="listwork__button__item">
+        <b-button
+          v-ripple.400="'rgba(113, 102, 240, 0.15)'"
+          variant="outline-primary"
+        >
+          Hủy bỏ
+        </b-button>
+      </div>
+
+    </div>
+  </div></template>
 
 <script>
 import { VueGoodTable } from 'vue-good-table'
+import { BButton } from 'bootstrap-vue'
 
 export default {
   components: {
-    VueGoodTable,
+    VueGoodTable, BButton,
   },
   data() {
     return {
       columns: [
         {
-          label: 'Name',
-          field: 'name',
+          label: 'Mã vị trí công việc',
+          field: 'mvtcv',
         },
         {
-          label: 'Age',
-          field: 'age',
-          type: 'number',
+          label: 'Vị trí công việc',
+          field: 'vtcv',
         },
         {
-          label: 'Created On',
-          field: 'createdAt',
-          type: 'date',
-          dateInputFormat: 'yyyy-MM-dd',
-          dateOutputFormat: 'MMM do yy',
+          label: 'Mô tả công việc',
+          field: 'mtcv',
         },
         {
-          label: 'Percent',
-          field: 'score',
-          type: 'percentage',
+          label: 'Yêu cầu công việc',
+          field: 'yccv',
         },
       ],
       rows: [
         {
-          id: 1, name: 'John', age: 20, createdAt: '', score: 0.03343,
+          mvtcv: '00123', vtcv: 'Giám đốc', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
         },
         {
-          id: 2, name: 'Jane', age: 24, createdAt: '2011-10-31', score: 0.03343,
+          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
         },
         {
-          id: 3, name: 'Susan', age: 16, createdAt: '2011-10-30', score: 0.03343,
+          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
         },
         {
-          id: 4, name: 'Chris', age: 55, createdAt: '2011-10-11', score: 0.03343,
+          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
         },
         {
-          id: 5, name: 'Dan', age: 40, createdAt: '2011-10-21', score: 0.03343,
+          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
+        },
+      ],
+
+      columns02: [
+        {
+          label: '',
+          field: 'icon02',
         },
         {
-          id: 6, name: 'John', age: 20, createdAt: '2011-10-31', score: 0.03343,
+          label: 'Mã vị trí công việc',
+          field: 'mvtcv02',
+        },
+        {
+          label: 'Vị trí công việc',
+          field: 'vtcv02',
+        },
+        {
+          label: 'Mô tả công việc',
+          field: 'mtcv02',
+        },
+        {
+          label: 'Yêu cầu công việc',
+          field: 'yccv02',
+        },
+      ],
+      rows02: [
+        {
+          mvtcv02: '00123', vtcv02: 'Giám đốc', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
+        },
+        {
+          mvtcv02: '00123', vtcv02: 'Trưởng phòng', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
+        },
+        {
+          mvtcv02: '00123', vtcv02: 'Trưởng phòng', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
         },
       ],
 
@@ -78,15 +180,79 @@ export default {
 }
 </script>
 
-<style scoped >
+<style >
 .listwork{
 background: white;
 box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.06);
 border-radius: 6px;
-padding:20px;
+
 }
 .table .vgt-table{
     width: 100%;
+}
+.vgt-table thead{
+  background-color: rgba(34, 127, 244, 0.12);
+
+}
+.vgt-table thead tr{
+  height: 39px;
+}
+.vgt-table tbody tr{
+  height: 58px;
+  border-bottom: 1px solid #CBCDD2
+}
+.listwork__top{
+padding:20px;}
+.listwork__top h4{
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 22px;
+
+color: #181F28
+}
+.listwork__text__center p{
+font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 21px;
+text-align: right;
+margin-top:20px;
+padding-right:20px;
+
+}
+.listwork__head__02{
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding:20px;
+}
+.listwork__head__02__left h4{
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 22px;
+color: #000000;
+}
+.listwork__head__02__right{
+display: flex;
+align-items: center;}
+.listwork__head__02__right__icon{
+margin-left: 20px;}
+
+.listwork__button{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top:40px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+.listwork__button__item{
+  margin-left:20px
 }
 
 </style>
