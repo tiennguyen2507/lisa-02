@@ -87,6 +87,21 @@
           }"
           @on-selected-rows-change="selectionChanged"
         >
+          <template
+            slot="table-row"
+            slot-scope="props"
+          >
+            <span v-if="props.column.field == 'cn'">
+              <span style=""><feather-icon
+                icon="EditIcon"
+                class="table__chucnang__icon"
+              /><feather-icon
+                icon="Trash2Icon"
+                class="table__chucnang__icon"
+                style="margin-left:14px"
+              /></span>
+            </span>
+          </template>
           />
         </vue-good-table></div>
     </div>
@@ -293,7 +308,7 @@ margin-bottom:0px;
 }
 .table__chucnang{
   text-align: end;
-  padding-right: 50px;
+  padding-right: 55px;
 }
 .table__chucnang i{
   font-size: 21px;
