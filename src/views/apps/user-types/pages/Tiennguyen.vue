@@ -80,8 +80,8 @@
           :select-options="{ enabled: true }"
           style-class="vgt-table"
           :pagination-options="{
+            position:top,
             enabled: true,
-            infoFn: (params) => `Showing ${params.firstRecordOnPage} to ${params.lastRecordOnPage} of page ${params.currentPage}`,
             setCurrentPage: currentPage,
             perPage: perpage,
           }"
@@ -102,24 +102,48 @@
               /></span>
             </span>
           </template>
+          <template
+            slot="pagination-bottom"
+            slot-scope="props"
+          >
+            <div class="table__bottom">
+              <div class="table__bottom__left">
+
+                <p>Hiển thị {{ firstpage+perpage }} đến {{ lastpage+perpage }} của {{ rows.length }} danh mục</p>
+              </div>
+              <div class="table__bottom__right">
+                <b-pagination
+                  :value="1"
+                  :per-page="perpage"
+                  :total-rows="rows.length"
+                  first-number
+                  last-number
+                  align="right"
+                  prev-class="prev-item"
+                  next-class="next-item"
+                  class="mt-1 mb-0"
+                  @input="(value)=>props.pageChanged({currentPage:value})"
+                >
+                  <template #prev-text>
+                    <feather-icon
+                      icon="ChevronLeftIcon"
+                      size="18"
+                    />
+                  </template>
+                  <template #next-text>
+                    <feather-icon
+                      icon="ChevronRightIcon"
+                      size="18"
+                    />
+                  </template>
+                </b-pagination>
+              </div>
+            </div>
+          </template>
           />
         </vue-good-table></div>
     </div>
-    <div class="table__bottom">
-      <div class="table__bottom__left">
-        <p>Hiển thị {{ firstpage+perpage }} đến {{ lastpage+perpage }} của {{ rows.length }} danh mục</p>
-      </div>
-      <div class="table__bottom__right">
-        <div class="mt-2">
-          <b-pagination
-            v-model="currentPage"
-            :per-page="perpage"
-            pills
-            :total-rows="rows.length"
-          />
-        </div>
-      </div>
-    </div>
+
   </div>
 
 </template>
@@ -257,7 +281,7 @@ border-radius: 6px;
   margin-right: 16px;
 }
 .table__main{
-  margin:10px 0px 77px 0px;
+  padding:10px 0px 77px 0px;
 }
 .vgt-table{
   width: 100%;
@@ -291,6 +315,7 @@ border-radius: 6px;
   padding-left: 25px;
   padding-bottom: 17px;
   padding-right: 20px;
+  padding-top:77px;
 
   display: flex;
   align-items: center;
