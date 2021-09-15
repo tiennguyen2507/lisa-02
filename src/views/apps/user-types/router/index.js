@@ -16,6 +16,16 @@ const routes = [
         component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/Tiennguyen.vue'),
         name: 'tiennguyen',
       },
+      {
+        path: 'addwork',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/AddWork.vue'),
+        name: 'myPagination',
+      },
+      {
+        path: 'listwork',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/ListWork.vue'),
+        name: 'listwork',
+      },
       // {
       //   path: 'create',
       //   component: () => import(/* webpackChunkName: "user/projects" */ 'modules/Task/pages/create.vue'),

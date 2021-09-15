@@ -1,72 +1,73 @@
 <template>
 
   <div class="table01">
-    <div class="tiennguyen">
-      <div class="tiennguyen__left">
+    <div class="table__top">
+      <div class="table__top__left">
         <p>hiển thị</p>
         <!-- danger -->
         <b-dropdown
           v-ripple.400="'rgba(234, 84, 85, 0.15)'"
-          :text="page==''? '5':page"
-          class="tiennguyen__left__select"
+          :text="perpage==''? '5':perpage"
+          class="table__top__left__select"
 
           variant="flat-dark"
         >
           <b-dropdown-item
             v-for="(value,index) in select__down"
             :key="index"
-            @click="page=value"
+            @click="perpage=value"
           >
             {{ value }}
           </b-dropdown-item>
           <b-dropdown-divider />
           <b-dropdown-item>
-            {{ page==''? '5':page }}
+            {{ perpage==''? '5':perpage }}
           </b-dropdown-item>
         </b-dropdown>
 
-        <div class="tiennguyen__left__button">
+        <div class="table__top__left__button">
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             variant="danger"
-            class="btn-icon tiennguyen__left__button__item "
+            class="btn-icon table__top__left__button__item "
           >
-            <feather-icon icon="Link2Icon" />
+            <feather-icon icon="Trash2Icon" />
           </b-button>
 
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             variant="primary"
-            class="btn-icon tiennguyen__left__button__item"
+            class="btn-icon table__top__left__button__item"
           >
-            <feather-icon icon="Trash2Icon" />
+            <feather-icon icon="Link2Icon" />
+
           </b-button>
           <b-button
             v-ripple.400="'rgba(113, 102, 240, 0.15)'"
             variant="outline-primary"
-            class="btn-icon tiennguyen__left__button__item"
+            class="btn-icon table__top__left__button__item"
             disabled
           >
             <feather-icon icon="DownloadIcon" />
           </b-button>
         </div>
       </div>
-      <div class="tiennguyen__right">
-        <div class="tiennguyen__right__seach">
+      <div class="table__top__right">
+        <div class="table__top__right__seach">
           <b-input-group class="input-group-merge">
             <b-input-group-prepend is-text>
               <feather-icon icon="SearchIcon" />
             </b-input-group-prepend>
-            <b-form-input placeholder="Search" />
+            <b-form-input placeholder="Tìm kiếm" />
           </b-input-group>
         </div>
-        <div class="tiennguyen__right__button">
+        <div class="table__top__right__button">
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             variant="primary"
-            class="tiennguyen__right__button"
+            class="table__top__right__button"
           >
-            + Thêm vị trí công việc
+            <feather-icon icon="PlusIcon" /> Thêm vị trí công việc
           </b-button>
         </div>
       </div>
@@ -80,15 +81,9 @@
           style-class="vgt-table"
           :pagination-options="{
             enabled: true,
-            mode: 'page',
+            infoFn: (params) => `Showing ${params.firstRecordOnPage} to ${params.lastRecordOnPage} of page ${params.currentPage}`,
             setCurrentPage: currentPage,
-            perPage: page,
-            nextLabel: '>',
-            prevLabel: '<',
-            rowsPerPageLabel: 'Rows per page',
-            ofLabel: 'of',
-            pageLabel: 'page', // for 'pages' mode
-            allLabel: 'All',
+            perPage: perpage,
           }"
           @on-selected-rows-change="selectionChanged"
         >
@@ -97,13 +92,13 @@
     </div>
     <div class="table__bottom">
       <div class="table__bottom__left">
-        <p>Hiển thị 1 đến 7 của 100 danh mục</p>
+        <p>Hiển thị {{ firstpage+perpage }} đến {{ lastpage+perpage }} của {{ rows.length }} danh mục</p>
       </div>
       <div class="table__bottom__right">
         <div class="mt-2">
           <b-pagination
             v-model="currentPage"
-            :per-page="perPage"
+            :per-page="perpage"
             pills
             :total-rows="rows.length"
           />
@@ -129,7 +124,6 @@ export default {
   components: {
     BInputGroup,
     BPagination,
-
     BFormInput,
     BInputGroupPrepend,
     BButton,
@@ -140,11 +134,11 @@ export default {
   },
   data() {
     return {
-      page: '',
-      select__down: [5, 10, 20],
-      perPage: 3,
-      currentPage: 1,
-      row: 10,
+      firstpage: -5,
+      lastpage: 0,
+      perpage: 5, // số trang hiển thị trên 1 bảng
+      select__down: [5, 10, 20], // dể ghi
+      currentPage: 1, // trang hiện tại
       columns: [
         {
           label: 'Mã vị trí công việc',
@@ -169,37 +163,37 @@ export default {
       ],
       rows: [
         {
-          mvtc: '00123', vtcv: 'Giám đốc', mtct: 'Mô tả chi tiết', cn: 'không hiên thị icon',
+          mvtc: '00123', vtcv: 'Giám đốc', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
+          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: '<i class="bx bxs-edit"> <i class="bx bx-trash"></i> </i>',
         },
         {
           mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết', cn: ' không hiên thị icon',
@@ -219,32 +213,32 @@ border-radius: 6px;
 [dir] .btn-primary {
   background-color: blue;
 }
-.tiennguyen{
+.table__top{
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px;
 }
-.tiennguyen__left{
+.table__top__left{
   display: flex;
   align-items: center;
 }
-.tiennguyen__left p{
+.table__top__left p{
   margin-bottom:0px;
   margin-right: 25px;
 }
-.tiennguyen__left__select{
+.table__top__left__select{
   margin-right: 29px;
 }
-.tiennguyen__right {
+.table__top__right {
   display: flex;
   align-items: center;
 }
-.tiennguyen__right__button{
+.table__top__right__button{
   margin-left: 10px;
 }
 
-.tiennguyen__left__button__item{
+.table__top__left__button__item{
   margin-right: 16px;
 }
 .table__main{
@@ -301,9 +295,13 @@ margin-bottom:0px;
   text-align: end;
   padding-right: 50px;
 }
+.table__chucnang i{
+  font-size: 21px;
+  cursor: pointer;
+}
 .table__chucnang__th{
   text-align: end;
-  padding-right: 80px;
+  padding-right: 38px;
 }
 .footer__row-count{
   display: none;
