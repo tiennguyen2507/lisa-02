@@ -1,39 +1,40 @@
 <template>
   <div>
-    <div class="breadcrumb">
-      <div>
-        <div class="header ">
-          <div class="header-title">
-            <h3>Vị trí công việc</h3>
-          </div>
-          <div class="header-breadcrumb">
-            <b-breadcrumb
-              class="breadcrumb-slash"
-            >
-              <b-breadcrumb-item href="#">
-                <i class="bx bx-home-alt" />
-              </b-breadcrumb-item>
-              <b-breadcrumb-item href="#">
-                Quản lý đơn vị
-              </b-breadcrumb-item>
-              <b-breadcrumb-item href="#">
-                Vị trí công việc
-              </b-breadcrumb-item>
-              <b-breadcrumb-item active>
-                Danh sách vị trí công việc
-              </b-breadcrumb-item>
-            </b-breadcrumb>
-          </div>
+    <div>
+      <div class="header ">
+        <div class="header-title">
+          <h3>Vị trí công việc</h3>
+        </div>
+        <div class="header-breadcrumb">
+          <b-breadcrumb
+            class="breadcrumb-slash"
+          >
+            <b-breadcrumb-item href="#">
+              <i class="bx bx-home-alt" />
+            </b-breadcrumb-item>
+            <b-breadcrumb-item href="#">
+
+              Quản lý đơn vị
+            </b-breadcrumb-item>
+            <b-breadcrumb-item href="#">
+              Vị trí công việc
+            </b-breadcrumb-item>
+            <b-breadcrumb-item>
+              Danh sách vị trí công việc
+            </b-breadcrumb-item>
+            <b-breadcrumb-item active>
+              Danh sách thêm vị trí công việc
+            </b-breadcrumb-item>
+          </b-breadcrumb>
         </div>
       </div>
     </div>
     <div class="listwork">
       <div class="listwork__top">
-        <h4>Danh sách vị trí công việc hợp lệ</h4>
+        <h4>Danh sách vị trí công việc thành công</h4>
       </div>
       <div class="listwork__table__01">
         <vue-good-table
-          :select-options="{ enabled: true }"
           :columns="columns"
           :rows="rows"
           max-height="100%"
@@ -41,14 +42,6 @@
         >
           @on-selected-rows-change="selectionChanged"
           >
-          <template
-            slot="table-row"
-            slot-scope="props"
-          >
-            <span v-if="props.column.field == 'score'">
-              <span style="font-weight: bold; color: blue;">tiennguyen</span>
-            </span>
-          </template>
         </vue-good-table>
       </div>
       <div class="listwork__text__center">
@@ -56,26 +49,16 @@
       </div>
       <div class="listwork__head__02">
         <div class="listwork__head__02__left">
-          <h4>Danh sách vị trí công việc không hợp lệ</h4>
+          <h4>Danh sách vị trí công việc hợp lệ</h4>
         </div>
         <div class="listwork__head__02__right">
 
           <b-button
-            variant="primary"
+            variant="lisa-blue"
             class="btn-icon"
           >
-            <feather-icon icon="EditIcon" />
+            <feather-icon icon="RefreshCcwIcon" />
           </b-button>
-
-          <div class="listwork__head__02__right__icon">
-            <b-button
-              v-ripple.400="'rgba(113, 102, 240, 0.15)'"
-              variant="outline-primary"
-              class="btn-icon"
-            >
-              <feather-icon icon="CheckCircleIcon" />
-            </b-button>
-          </div>
 
           <div />
         </div>
@@ -86,33 +69,13 @@
           :columns="columns02"
           :rows="rows02"
           style-class="table-listwork"
-        >
-          <template
-            slot="table-row"
-            slot-scope="props"
-          >
-            <span v-if="props.column.field == 'icon02'">
-              <span> <feather-icon
-                icon="AlertTriangleIcon"
-                color="red"
-              /></span>
-            </span>
-          </template>
-        </vue-good-table>
+        />
       </div>
       <div class="listwork__text__center">
         <p>Tổng cộng: {{ rows02.length }} vị trí công việc</p>
       </div>
 
       <div class="listwork__button">
-        <div class="listwork__button__item">
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            variant="primary"
-          >
-            Thêm vị trí công việc
-          </b-button>
-        </div>
         <div class="listwork__button__item">
           <b-button
             v-ripple.400="'rgba(113, 102, 240, 0.15)'"
@@ -137,6 +100,7 @@ export default {
     BButton,
     BBreadcrumb,
     BBreadcrumbItem,
+
   },
   data() {
     return {
@@ -161,6 +125,12 @@ export default {
       rows: [
         {
           mvtcv: '00123', vtcv: 'Giám đốc', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
+        },
+        {
+          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
+        },
+        {
+          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
         },
         {
           mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
@@ -201,12 +171,6 @@ export default {
       rows02: [
         {
           mvtcv02: '00123', vtcv02: 'Giám đốc', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv02: '00123', vtcv02: 'Trưởng phòng', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv02: '00123', vtcv02: 'Trưởng phòng', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
         },
       ],
 

@@ -12,19 +12,24 @@ const routes = [
         name: 'user-type-create',
       },
       {
-        path: 'tiennguyen',
-        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/Tiennguyen.vue'),
-        name: 'tiennguyen',
+        path: 'position-job',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/Position-job.vue'),
+        name: 'position-job',
       },
       {
-        path: 'addwork',
-        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/AddWork.vue'),
-        name: 'myPagination',
+        path: 'add-job-position',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/Add-job-position.vue'),
+        name: 'add-job-position',
       },
       {
-        path: 'listwork',
-        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/ListWork.vue'),
-        name: 'listwork',
+        path: 'position-job-list',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/Position-job-list.vue'),
+        name: 'position-job-list',
+      },
+      {
+        path: 'List-more-job-positions',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/List-more-job-positions.vue'),
+        name: 'List-more-job-positions',
       },
       // {
       //   path: 'create',
