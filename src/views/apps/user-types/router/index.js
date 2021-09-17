@@ -31,6 +31,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/List-more-job-positions.vue'),
         name: 'List-more-job-positions',
       },
+      {
+        path: 'Vuex-action',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/user-types/pages/Vuex-action.vue'),
+        name: 'Vuex-action',
+      },
       // {
       //   path: 'create',
       //   component: () => import(/* webpackChunkName: "user/projects" */ 'modules/Task/pages/create.vue'),

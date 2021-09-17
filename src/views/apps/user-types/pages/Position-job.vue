@@ -14,14 +14,10 @@
                 <i class="bx bx-home-alt" />
               </b-breadcrumb-item>
               <b-breadcrumb-item href="#">
-
                 Quản lý đơn vị
               </b-breadcrumb-item>
-              <b-breadcrumb-item href="#">
-                Vị trí công việc
-              </b-breadcrumb-item>
               <b-breadcrumb-item active>
-                Thêm vị trí công việc
+                Vị trí công việc
               </b-breadcrumb-item>
             </b-breadcrumb>
           </div>
@@ -85,17 +81,24 @@
                 <b-input-group-prepend is-text>
                   <feather-icon icon="SearchIcon" />
                 </b-input-group-prepend>
-                <b-form-input placeholder="Tìm kiếm" />
+                <b-form-input
+                  v-model="value_input"
+                  placeholder="Tìm kiếm"
+                />
               </b-input-group>
             </div>
             <div class="table__top__right__button">
-              <b-button
-                v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-                variant="lisa-blue"
-                class="table__top__right__button"
+              <router-link
+                to="add-job-position"
               >
-                <feather-icon icon="PlusIcon" /> Thêm vị trí công việc
-              </b-button>
+                <b-button
+                  v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                  variant="lisa-blue"
+                  class="table__top__right__button"
+                >
+                  <feather-icon icon="PlusIcon" /> Thêm vị trí công việc
+                </b-button>
+              </router-link>
             </div>
           </div>
         </div>
@@ -103,17 +106,29 @@
           <div>
             <vue-good-table
               :columns="columns"
-              :rows="rows"
+              :rows="data_position__job"
               :select-options="{ enabled: true }"
               style-class="vgt-table"
               :pagination-options="{
-                position:top,
                 enabled: true,
                 setCurrentPage: currentPage,
                 perPage: perpage,
               }"
-              @on-selected-rows-change="selectionChanged"
+              :search-options="{
+                enabled: true,
+                externalQuery: value_input
+              }"
+              :sort-options="{
+                enabled: true,
+                initialSortBy: {field: 'vtcv', type: 'asc'},
+                initialSortBy: {field: 'mtct', type: 'asc'}
+              }"
             >
+              >
+              @on-selected-rows-change="selectionChanged"
+              @on-search="onSearch"
+              >
+
               <template
                 slot="table-row"
                 slot-scope="props"
@@ -126,7 +141,17 @@
                     icon="Trash2Icon"
                     class="table__chucnang__icon"
                     style="margin-left:14px"
+                    @click="deleteWork(props.row.id)"
                   /></span>
+                </span>
+                <span v-if="props.column.field == 'mvtc'">
+                  <span>{{ props.row.code }}</span>
+                </span>
+                <span v-if="props.column.field == 'vtcv'">
+                  <span>{{ props.row.name }}</span>
+                </span>
+                <span v-if="props.column.field == 'mtct'">
+                  <span>{{ props.row.description }}</span>
                 </span>
               </template>
               />
@@ -142,15 +167,13 @@
               <b-pagination
                 v-model="currentPage"
                 :per-page="perpage"
-                :total-rows="rows.length"
+                :total-rows="data_position__job.length"
               />
             </div>
           </div>
         </div>
-
       </div>
     </div>
-
   </div></template>
 
 <script>
@@ -163,6 +186,7 @@ import {
   BButton,
   BDropdown, BDropdownItem, BDropdownDivider,
 } from 'bootstrap-vue'
+import { mapActions, mapState } from 'vuex'
 import { VueGoodTable } from 'vue-good-table'
 
 export default {
@@ -179,8 +203,10 @@ export default {
     BBreadcrumb,
     BBreadcrumbItem,
   },
+
   data() {
     return {
+      value_input: '',
       firstpage: -5,
       lastpage: 0,
       perpage: 5, // số trang hiển thị trên 1 bảng
@@ -249,6 +275,21 @@ export default {
       ],
     }
   },
+  computed: {
+    ...mapState('userType', ['data_position__job']),
+  },
+  async created() {
+    await this.doFetchDataPositionJob()
+    await this.downloadSamplePositionJo()
+  },
+  methods: {
+    ...mapActions('userType', ['doFetchDataPositionJob', 'downloadSamplePositionJo']),
+    deleteWork(id) {
+      console.log(id)
+    },
+
+  },
+
 }
 </script>
 <style>
