@@ -1,6 +1,5 @@
 export default {
-  // data_create: [],
-  // tasks: [],
-  // edit_task: [],
-  // projects: [],
+  data_position__job: [],
+  download_sample_position_job: '',
+
 }
