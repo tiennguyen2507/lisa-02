@@ -12,6 +12,7 @@ import chartsMaps from './routes/charts-maps'
 import formsTable from './routes/forms-tables'
 import others from './routes/others'
 import userType from '@/views/apps/user-types/router/index'
+import positionJob from '@/views/apps/position-job/router/index'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,7 @@ const router = new VueRouter({
     ...uiElements,
     ...others,
     ...userType,
+    ...positionJob,
     {
       path: '*',
       redirect: 'error-404',

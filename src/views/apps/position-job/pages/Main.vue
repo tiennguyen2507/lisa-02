@@ -36,7 +36,7 @@
               variant="flat-dark"
             >
               <b-dropdown-item
-                v-for="(value,index) in select__down"
+                v-for="(value,index) in selectDown"
                 :key="index"
                 @click="perpage=value"
               >
@@ -92,7 +92,7 @@
             </div>
             <div class="table__top__right__button">
               <router-link
-                to="add-job-position"
+                to="position-job/add"
               >
                 <b-button
                   v-ripple.400="'rgba(255, 255, 255, 0.15)'"
@@ -109,7 +109,7 @@
           <div>
             <vue-good-table
               :columns="columns"
-              :rows="data_position__job"
+              :rows="dataPositionJob"
               :select-options="{ enabled: true , selectOnCheckboxOnly: true,}"
               style-class="vgt-table"
               :pagination-options="{
@@ -169,7 +169,7 @@
               <b-pagination
                 v-model="currentPage"
                 :per-page="perpage"
-                :total-rows="data_position__job.length"
+                :total-rows="dataPositionJob.length"
               />
             </div>
           </div>
@@ -213,7 +213,7 @@ export default {
       firstpage: -5,
       lastpage: 0,
       perpage: 5, // số trang hiển thị trên 1 bảng
-      select__down: [5, 10, 20], // dể ghi
+      selectDown: [5, 10, 20], // dể ghi
       currentPage: 1, // trang hiện tại
       columns: [
         {
@@ -280,16 +280,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('userType', ['data_position__job']),
+    ...mapState('positionJob', ['dataPositionJob']),
   },
   async created() {
     await this.doFetchDataPositionJob()
   },
   methods: {
-    ...mapActions('userType', ['doFetchDataPositionJob', 'deletePositionJob01']),
-    deleteWork(id) {
-      this.deletePositionJob01(id)
-    },
+    ...mapActions('positionJob', ['doFetchDataPositionJob']),
     selectionChanged(param) {
       console.log(param.selectedRows)
       this.selectData = param.selectedRows.map(value => value.id)
