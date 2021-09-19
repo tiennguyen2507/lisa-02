@@ -27,6 +27,16 @@
       </div>
     </div>
     <div class="addwork">
+      <div
+        v-if="alertAddJob.status"
+        class="addwork__alert"
+      >
+        <p>{{ alertAddJob.name }}</p>
+        <feather-icon
+          icon="XIcon"
+          @click="ALERTADDJOBCLOSE"
+        />
+      </div>
       <b-row>
         <b-col
           md="6"
@@ -113,12 +123,6 @@
             Hủy bỏ
           </b-button>
         </div>
-        <div v-if="alertAddJob.status">
-          {{ alertAddJob.name }}
-          <button @click="ALERTADDJOBCLOSE">
-            close
-          </button>
-        </div>
       </div>
     </div></div>
 
@@ -154,7 +158,7 @@ export default {
   },
   methods: {
     ...mapActions('positionJob', ['addJobAction', 'checkCodeAction', 'checkNameAction']),
-    ...mapMutations('positionJob', ['ALERTADDJOBCLOSE']),
+    ...mapMutations('positionJob', ['ALERTADDJOBCLOSE', 'ALERTADDJOB']),
     addJob() {
       if (this.nameValue !== '' && this.codeValue !== '' && this.descriptionValue !== '' && this.requestValue !== '') {
         const dataAdd = {
@@ -167,7 +171,7 @@ export default {
         this.addJobAction(dataAdd)
       } else {
         // eslint-disable-next-line no-alert
-        alert('điền đầy đủ thông tin')
+        this.ALERTADDJOB('vui lòng điền đầy đủ tông tin')
       }
     },
   },
@@ -189,6 +193,24 @@ padding:20px;
 }
 .addwork__button__item{
   margin-left:20px
+}
+
+.addwork__alert{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px;
+  width: 100%;
+  height: 40px;
+  background-color: rgb(252,234,234);
+  margin-bottom:10px;
+  border-radius:  5px;
+}
+.addwork__alert p{
+  margin: 0px;
+  padding: 0px;
+  color: rgb(234,84,85);
 }
 
 /* Breadcrumb  */

@@ -59,23 +59,39 @@
 
               <b-button
                 v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                for="file"
+                type="file"
                 variant="lisa-blue"
                 class="btn-icon table__top__left__button__item"
               >
-                <feather-icon icon="Link2Icon" />
+                <input
+                  id="file"
+                  ref="file"
+                  type="file"
+                  class="inputFlie"
+                  @change="fileFC()"
+                >
+                <label for="file"><feather-icon
+                  icon="Link2Icon"
+                  for="file"
+                /></label>
 
               </b-button>
               <b-button
                 v-ripple.400="'rgba(113, 102, 240, 0.15)'"
+                for="file"
                 variant="outline-primary"
                 class="btn-icon table__top__left__button__item"
                 disabled
               >
                 <feather-icon
+                  for="file"
                   icon="DownloadIcon"
-                  @click="selectionChanged()"
+                  @click="dowloadFile"
                 />
+
               </b-button>
+
             </div>
           </div>
           <div class="table__top__right">
@@ -123,8 +139,8 @@
               }"
               :sort-options="{
                 enabled: true,
-                initialSortBy: {field: 'vtcv', type: 'asc'},
-                initialSortBy: {field: 'mtct', type: 'asc'}
+                initialSortBy: {field: 'code', type: 'asc'},
+                initialSortBy: {field: 'name', type: 'asc'}
               }"
               @on-selected-rows-change="selectionChanged"
               @on-search="valueInput"
@@ -145,15 +161,6 @@
                     @click="deleteWork(props.row.id)"
                   /></span>
                 </span>
-                <span v-if="props.column.field == 'mvtc'">
-                  <span>{{ props.row.code }}</span>
-                </span>
-                <span v-if="props.column.field == 'vtcv'">
-                  <span>{{ props.row.name }}</span>
-                </span>
-                <span v-if="props.column.field == 'mtct'">
-                  <span>{{ props.row.description }}</span>
-                </span>
               </template>
               />
             </vue-good-table></div>
@@ -162,7 +169,6 @@
           <div class="table__bottom__left">
 
             <p>Hiển thị {{ firstpage+perpage }} đến {{ lastpage+perpage }} của {{ rows.length }} danh mục</p>
-            {{ selectData }}
           </div>
           <div class="table__bottom__right">
             <div class="mt-2">
@@ -208,6 +214,7 @@ export default {
 
   data() {
     return {
+      file: '',
       selectData: [],
       valueInput: '',
       firstpage: -5,
@@ -218,17 +225,16 @@ export default {
       columns: [
         {
           label: 'Mã vị trí công việc',
-          field: 'mvtc',
+          field: 'code',
           tdClass: 'tiennguyen2507',
-          type: 'number',
         },
         {
           label: 'Vị trí công việc',
-          field: 'vtcv',
+          field: 'name',
         },
         {
           label: 'Mô tả chi tiết',
-          field: 'mtct',
+          field: 'description',
         },
         {
           label: 'Chức năng',
@@ -286,11 +292,39 @@ export default {
     await this.doFetchDataPositionJob()
   },
   methods: {
-    ...mapActions('positionJob', ['doFetchDataPositionJob']),
+    ...mapActions('positionJob', ['doFetchDataPositionJob', 'downloadSamplePositionJob']),
     selectionChanged(param) {
       console.log(param.selectedRows)
       this.selectData = param.selectedRows.map(value => value.id)
       console.log(this.selectData)
+    },
+    dowloadFile() {
+      this.downloadSamplePositionJob()
+    },
+    fileFC() {
+      // eslint-disable-next-line prefer-destructuring
+      this.file = this.$refs.file.files[0]
+      const fileReader = new FileReader()
+      fileReader.readAsBinaryString(this.file)
+      fileReader.onload = event => {
+        const dataExcel = event.target.result
+        // eslint-disable-next-line no-undef
+        const workbook = XLSX.read(dataExcel, { type: 'binary' })
+        // eslint-disable-next-line camelcase
+        const first_sheet_name = workbook.SheetNames[0]
+        /* Get worksheet */
+        const worksheet = workbook.Sheets[first_sheet_name]
+        // eslint-disable-next-line no-undef
+        const data = XLSX.utils.sheet_to_json(worksheet, {
+          raw: true,
+        })
+        console.log(data)
+        // workbook.SheetNames.forEach(sheet => {
+        //   // eslint-disable-next-line no-undef
+        //   const rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet])
+        //   console.log(rowObject)
+        // })
+      }
     },
 
   },
@@ -363,7 +397,8 @@ border-radius: 6px;
     padding: 1px 9px;
     color: #227FF4;
     width: 49px;
-    background-color: rgba(34, 127, 244, 0.12);
+   background-color: #d0ddee
+
 }
 .table__bottom{
   padding-left: 25px;
@@ -429,7 +464,7 @@ color:#2E3A4A;
 
     width:1px;
     height:26px;
-    background-color: #CBCDD2;
+    background-color: #E4F0FE;
 }
 
 .header-breadcrumb{
@@ -451,4 +486,11 @@ a {
 padding-left: 20px;
 }
 /* end breadcrumb */
+.inputFlie{
+  display: none;
+}
+label{
+  margin: 0px;
+  color: white;
+}
 </style>

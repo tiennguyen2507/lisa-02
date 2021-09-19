@@ -74,64 +74,29 @@ export default {
       console.log(`lỗi rồi ${e}`)
     }
   },
-  // async addJobAction({ commit }, dataAdd) {
-  //   try {
-  //     console.log('gọi từ addJobAction')
-  //     const resuft = await axios.post('/Position/positions', dataAdd)
-  //     if (resuft.status === 200) {
-  //       commit(ADDJOBMUTATION, dataAdd)
-  //     }
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // },
-  // async checkCodeAction({ commit }, data) {
-  //   try {
-  //     console.log('gọi được action checkCodeAction')
-  //     const urlQuery = {
-  //       code: data,
-  //     }
-  //     const checkCode = await axios.get('/Position/existCode', { params: urlQuery })
-  //     if (checkCode.status === 200) {
-  //       commit(CHECKCODEMUTISION, checkCode.data)
-  //       console.log(checkCode.data)
-  //     }
-  //   } catch (e) {
-  //     console.error(e)
-  //     console.log('lỗi rồi')
-  //   }
-  // },
-  // async checkNameAction({ commit }, data) {
-  //   try {
-  //     console.log('gọi được action checkNameAction')
-  //     const urlQuery = {
-  //       name: data,
-  //     }
-  //     console.log(data)
-  //     console.log(urlQuery)
-  //     const checkName = await axios.get('/Position/existName', { params: urlQuery })
-  //     console.log(checkName)
-  //     if (checkName.status === 200) {
-  //       commit(CHECKNAMEMUTISION, checkName.data)
-  //       console.log(checkName.data)
-  //     }
-  //   } catch (e) {
-  //     console.error(e)
-  //     console.log('lỗi rồi')
-  //   }
-  // },
-  // async downloadSamplePositionJo({ commit }) {
-  //   try {
-  //     console.log('gọi được action download')
-  //     const apidowload = await axios.get('Position/generateTemplate')
-  //     if (apidowload.status === 200) {
-  //       commit(DOWNLOADSAMPLEPOSITIONJOB, apidowload)
-  //       console.log(apidowload)
-  //     }
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // },
+  async downloadSamplePositionJob() {
+    try {
+      console.log('gọi được action download')
+      // const apidowload = await axios.get('/Position/generateTemplate')
+      axios({
+        url: '/Position/generateTemplate', // your url
+        method: 'GET',
+        responseType: 'blob', // important
+      }).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', 'filemau.xlsx') // or any other extension
+        document.body.appendChild(link)
+        link.click()
+      })
+      // if (apidowload.status === 200) {
+      //   console.log(apidowload)
+      // }
+    } catch (e) {
+      console.log(`download bị lỗi ${e}`)
+    }
+  },
   // async deletePositionJob01({ commit }, dataDelete) {
   //   try {
   //     console.log('gọi được action download')
