@@ -4,6 +4,9 @@ export const CHECKCODEMUTISION = 'CHECKCODEMUTISION'
 export const CHECKNAMEMUTISION = 'CHECKNAMEMUTISION'
 export const ALERTADDJOB = 'ALERTADDJOB'
 export const ALERTADDJOBCLOSE = 'ALERTADDJOBCLOSE'
+export const VALIDWORKMUTATION = 'VALIDWORKMUTATION'
+export const VALIDNOWORKMUTATION = 'VALIDNOWORKMUTATION'
+export const EDITMUTATION = 'EDITMUTATION'
 // export const DOWNLOADSAMPLEPOSITIONJOB = 'DOWNLOADSAMPLEPOSITIONJOB'
 
 export default {
@@ -31,6 +34,18 @@ export default {
   [ALERTADDJOBCLOSE](state) {
     state.alertAddJob.status = false
     console.log('đã chạy vào ALERTADDJOB')
+  },
+  [VALIDWORKMUTATION](state, data) {
+    state.validWork = data
+    console.log('đã chạy vào VALIDWORKMUTATION')
+  },
+  [VALIDNOWORKMUTATION](state, data) {
+    state.validNoWork = data
+    console.log('đã chạy vào VALIDNOWORKMUTATION')
+  },
+  [EDITMUTATION](state, data) {
+    state.valueEdit = data
+    console.log('đã chạy vào EDITMUTATION')
   },
   // [DOWNLOADSAMPLEPOSITIONJOB](state, data) {
   //   state.download_sample_position_job = data

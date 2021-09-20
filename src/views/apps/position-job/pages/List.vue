@@ -34,7 +34,7 @@
         <vue-good-table
           :select-options="{ enabled: true }"
           :columns="columns"
-          :rows="rows"
+          :rows="validWork"
           max-height="100%"
           style-class="table-listwork"
         >
@@ -51,7 +51,7 @@
         </vue-good-table>
       </div>
       <div class="listwork__text__center">
-        <p>Tổng cộng: {{ rows.length }} vị trí công việc</p>
+        <p>Tổng cộng: {{ validWork.length }} vị trí công việc</p>
       </div>
       <div class="listwork__head__02">
         <div class="listwork__head__02__left">
@@ -83,7 +83,7 @@
       <div class="listwork__table__02">
         <vue-good-table
           :columns="columns02"
-          :rows="rows02"
+          :rows="validNoWork"
           style-class="table-listwork"
         >
           <template
@@ -100,7 +100,7 @@
         </vue-good-table>
       </div>
       <div class="listwork__text__center">
-        <p>Tổng cộng: {{ rows02.length }} vị trí công việc</p>
+        <p>Tổng cộng: {{ validNoWork.length }} vị trí công việc</p>
       </div>
 
       <div class="listwork__button">
@@ -129,6 +129,7 @@
 <script>
 import { VueGoodTable } from 'vue-good-table'
 import { BButton, BBreadcrumb, BBreadcrumbItem } from 'bootstrap-vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -143,39 +144,21 @@ export default {
       columns: [
         {
           label: 'Mã vị trí công việc',
-          field: 'mvtcv',
+          field: 'code',
         },
         {
           label: 'Vị trí công việc',
-          field: 'vtcv',
+          field: 'name',
         },
         {
           label: 'Mô tả công việc',
-          field: 'mtcv',
+          field: 'description',
         },
         {
           label: 'Yêu cầu công việc',
-          field: 'yccv',
+          field: 'requirement',
         },
       ],
-      rows: [
-        {
-          mvtcv: '00123', vtcv: 'Giám đốc', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv: '00123', vtcv: 'Trưởng phòng', mtcv: 'Mô tả chi tiết', yccv: 'Mô tả chi tiết',
-        },
-      ],
-
       columns02: [
         {
           label: '',
@@ -183,34 +166,25 @@ export default {
         },
         {
           label: 'Mã vị trí công việc',
-          field: 'mvtcv02',
+          field: 'code',
         },
         {
           label: 'Vị trí công việc',
-          field: 'vtcv02',
+          field: 'name',
         },
         {
           label: 'Mô tả công việc',
-          field: 'mtcv02',
+          field: 'description',
         },
         {
           label: 'Yêu cầu công việc',
-          field: 'yccv02',
+          field: 'requirement',
         },
       ],
-      rows02: [
-        {
-          mvtcv02: '00123', vtcv02: 'Giám đốc', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv02: '00123', vtcv02: 'Trưởng phòng', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
-        },
-        {
-          mvtcv02: '00123', vtcv02: 'Trưởng phòng', mtcv02: 'Mô tả chi tiết', yccv02: 'Mô tả chi tiết',
-        },
-      ],
-
     }
+  },
+  computed: {
+    ...mapState('positionJob', ['validWork', 'validNoWork']),
   },
 
 }

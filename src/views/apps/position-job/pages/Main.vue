@@ -74,6 +74,7 @@
                 <label for="file"><feather-icon
                   icon="Link2Icon"
                   for="file"
+                  class="input__label"
                 /></label>
 
               </b-button>
@@ -154,6 +155,7 @@
                   <span style=""><feather-icon
                     icon="EditIcon"
                     class="table__chucnang__icon"
+                    @click="edit(props.row.id)"
                   /><feather-icon
                     icon="Trash2Icon"
                     class="table__chucnang__icon"
@@ -194,7 +196,7 @@ import {
   BButton,
   BDropdown, BDropdownItem, BDropdownDivider,
 } from 'bootstrap-vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 import { VueGoodTable } from 'vue-good-table'
 
 export default {
@@ -245,43 +247,6 @@ export default {
         },
       ],
       rows: [
-        {
-          mvtc: '00123', vtcv: 'Giám đốc', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-        {
-          mvtc: '00123', vtcv: 'Trưởng phòng', mtct: 'Mô tả chi tiết',
-        },
-
       ],
     }
   },
@@ -292,7 +257,8 @@ export default {
     await this.doFetchDataPositionJob()
   },
   methods: {
-    ...mapActions('positionJob', ['doFetchDataPositionJob', 'downloadSamplePositionJob']),
+    ...mapActions('positionJob', ['doFetchDataPositionJob', 'downloadSamplePositionJob', 'getApiExcel']),
+    ...mapMutations('positionJob', ['EDITMUTATION']),
     selectionChanged(param) {
       console.log(param.selectedRows)
       this.selectData = param.selectedRows.map(value => value.id)
@@ -310,7 +276,7 @@ export default {
         const dataExcel = event.target.result
         // eslint-disable-next-line no-undef
         const workbook = XLSX.read(dataExcel, { type: 'binary' })
-        console.log(workbook)
+        // console.log(workbook)
         // eslint-disable-next-line camelcase
         // const first_sheet_name = workbook.SheetNames[0]
         /* Get worksheet */
@@ -325,30 +291,42 @@ export default {
           const rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet])
           console.log(rowObject)
 
-          const dataFileXLSX = rowObject.map(value => ({
-            code: value.Mã_vị_trí_công_việc,
-            name: value.Tên_vị_trí_công_việc,
-            description: value.Mô_tả,
-            requirement: value.Yêu_cầu,
-            messErr: [
-              {
-                location: 'string',
-                message: 'string',
-              },
-            ],
-          }))
-          const dataFileXLSX01 = {
-            listExcel: [
+          const dataFileXLSX = rowObject.map(value => (
+            {
+              code: value.Mã_vị_trí_công_việc,
+              name: value.Tên_vị_trí_công_việc,
+              description: value.Mô_tả,
+              requirement: value.Yêu_cầu,
+              isSuccess: true,
+              messErr: [
+                {
+                  location: 'string',
+                  locationType: 'string',
+                  message: 'string',
+                },
+              ],
+            }
 
-              dataFileXLSX,
-
-            ],
-            isValidate: true,
-          }
-          console.log(dataFileXLSX)
-          console.log(dataFileXLSX01)
+          ))
+          // const dataFileXLSX01 = {
+          //   listExcel: [
+          //     dataFileXLSX,
+          //   ],
+          //   isValidate: true,
+          // }
+          // console.log(dataFileXLSX)
+          // console.log(dataFileXLSX01)
+          this.getApiExcel(dataFileXLSX)
+          this.$router.push('/position-job/list')
         })
       }
+    },
+    edit(data) {
+      const ValueEdit = this.dataPositionJob.filter(e => e.id === data)
+      this.EDITMUTATION(ValueEdit)
+
+      this.$router.push('/position-job/edit')
+      console.log(ValueEdit)
     },
 
   },
@@ -512,7 +490,7 @@ padding-left: 20px;
 .inputFlie{
   display: none;
 }
-label{
+.input__label{
   margin: 0px;
   color: white;
 }

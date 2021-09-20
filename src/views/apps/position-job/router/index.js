@@ -17,6 +17,11 @@ const routes = [
         name: 'add',
       },
       {
+        path: 'edit',
+        component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/position-job/pages/Edit.vue'),
+        name: 'edit',
+      },
+      {
         path: 'list',
         component: () => import(/* webpackChunkName: "user/projects" */ '@/views/apps/position-job/pages/List.vue'),
         name: 'list',
