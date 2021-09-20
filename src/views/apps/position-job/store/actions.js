@@ -97,6 +97,18 @@ export default {
       console.log(`download bị lỗi ${e}`)
     }
   },
+  async getApiExcel(abc, data) {
+    try {
+      console.log('gọi được action getApiExcel')
+      const resuft = await axios.post('/Position/positions', data)
+      if (resuft.status === 200) {
+        console.log(resuft.data.data.pageLists)
+      }
+      console.log(resuft.status)
+    } catch (e) {
+      console.log(e)
+    }
+  },
   // async deletePositionJob01({ commit }, dataDelete) {
   //   try {
   //     console.log('gọi được action download')
