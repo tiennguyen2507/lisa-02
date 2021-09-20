@@ -310,20 +310,44 @@ export default {
         const dataExcel = event.target.result
         // eslint-disable-next-line no-undef
         const workbook = XLSX.read(dataExcel, { type: 'binary' })
+        console.log(workbook)
         // eslint-disable-next-line camelcase
-        const first_sheet_name = workbook.SheetNames[0]
+        // const first_sheet_name = workbook.SheetNames[0]
         /* Get worksheet */
-        const worksheet = workbook.Sheets[first_sheet_name]
+        // const worksheet = workbook.Sheets[first_sheet_name]
         // eslint-disable-next-line no-undef
-        const data = XLSX.utils.sheet_to_json(worksheet, {
-          raw: true,
-        })
-        console.log(data)
-        // workbook.SheetNames.forEach(sheet => {
-        //   // eslint-disable-next-line no-undef
-        //   const rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet])
-        //   console.log(rowObject)
+        // const data = XLSX.utils.sheet_to_json(worksheet, {
+        //   raw: true,
         // })
+        // console.log(data)
+        workbook.SheetNames.forEach(sheet => {
+          // eslint-disable-next-line no-undef
+          const rowObject = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet])
+          console.log(rowObject)
+
+          const dataFileXLSX = rowObject.map(value => ({
+            code: value.Mã_vị_trí_công_việc,
+            name: value.Tên_vị_trí_công_việc,
+            description: value.Mô_tả,
+            requirement: value.Yêu_cầu,
+            messErr: [
+              {
+                location: 'string',
+                message: 'string',
+              },
+            ],
+          }))
+          const dataFileXLSX01 = {
+            listExcel: [
+
+              dataFileXLSX,
+
+            ],
+            isValidate: true,
+          }
+          console.log(dataFileXLSX)
+          console.log(dataFileXLSX01)
+        })
       }
     },
 
@@ -458,7 +482,6 @@ color:#2E3A4A;
   content:"";
   display: block;
   position: absolute;
-
     right: 0;
     top: 0;
 
